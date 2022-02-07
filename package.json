@@ -1,14 +1,19 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3005",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.5",
+    "axios": "^0.25.0",
+    "lodash": "^4.17.21",
     "next": "latest",
+    "next-themes": "^0.0.15",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "recoil": "^0.6.1"
   },
   "devDependencies": {
     "@types/node": "17.0.4",
