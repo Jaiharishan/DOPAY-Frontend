@@ -6,9 +6,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@heroicons/react": "^1.0.5",
+    "@mui/icons-material": "^5.4.1",
+    "@mui/material": "^5.4.1",
     "axios": "^0.25.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "next": "latest",
     "next-themes": "^0.0.15",
     "react": "^17.0.2",

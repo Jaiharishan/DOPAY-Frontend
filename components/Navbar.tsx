@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import ThemButton from './ThemButton'
 import SearchBar from './SearchBar'
@@ -6,9 +6,10 @@ import { useRecoilValue } from 'recoil'
 import userState from '../helpers/atoms/userAtom'
 import Link from 'next/link'
 import { Iuser } from '../helpers/interfaces/userInterface'
+import UserContext from '../helpers/contexts/userContext'
 
 const Navbar: FC = () => {
-  const user = useRecoilValue<Iuser | {}>(userState)
+  const user = useContext(UserContext)
   return (
     <div className="sticky top-0 left-0 z-50 flex items-center justify-between border-b border-gray-300 bg-white px-3 py-4 dark:border-gray-600 dark:bg-[#121212] md:py-4">
       <Link href="/">

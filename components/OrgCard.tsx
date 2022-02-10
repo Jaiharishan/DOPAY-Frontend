@@ -5,6 +5,7 @@ import Link from 'next/link'
 import randomColors from '../helpers/colors'
 
 interface IProps {
+  id: string
   profilePic: string
   name: string
   members: number
@@ -12,25 +13,18 @@ interface IProps {
   tags: string[]
 }
 
-// const colors: string[] = [
-//   'bg-red-300',
-//   'bg-orange-300',
-//   'bg-amber-300',
-//   'bg-yellow-300',
-//   'bg-lime-300',
-//   'bg-teal-300',
-//   'bg-green-300',
-//   'bg-emerald-300',
-//   'bg-sky-300',
-//   'bg-blue-300',
-//   'bg-fuschia-300',
-// ]
-
-const OrgCard: FC<IProps> = ({ profilePic, name, members, payments, tags }) => {
+const OrgCard: FC<IProps> = ({
+  id,
+  profilePic,
+  name,
+  members,
+  payments,
+  tags,
+}) => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <Link href="/">
+    <Link href={`/organization/${id}`}>
       <a>
         <div className="flex w-56 flex-col items-start rounded-lg border border-gray-300 py-3 px-3 transition duration-150 hover:scale-105  dark:border-gray-600">
           <img
@@ -48,7 +42,7 @@ const OrgCard: FC<IProps> = ({ profilePic, name, members, payments, tags }) => {
             {payments}
           </p>
           <div className="mt-3 flex gap-2">
-            {tags &&
+            {tags.length ? (
               tags.map((tag) => (
                 <div
                   className={
@@ -58,7 +52,16 @@ const OrgCard: FC<IProps> = ({ profilePic, name, members, payments, tags }) => {
                 >
                   {tag}
                 </div>
-              ))}
+              ))
+            ) : (
+              <div
+                className={
+                  randomColors() + ' rounded-full px-3 py-1 text-sm text-white'
+                }
+              >
+                {name}
+              </div>
+            )}
           </div>
         </div>
       </a>

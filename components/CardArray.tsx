@@ -3,12 +3,15 @@ import OrgCard from './OrgCard'
 import useScrollBox from '../helpers/hooks/useScrollBox'
 interface IProps {
   Title: string
+  organizations: any
 }
 
-const CardArray: FC<IProps> = ({ Title }) => {
-  const array = [1, 1, 1, 1, 1, 1, 1, 1]
+const CardArray: FC<IProps> = ({ Title, organizations }) => {
   const scrollWrapperRef = useRef()
   const { isDragging } = useScrollBox(scrollWrapperRef)
+
+  console.log(organizations)
+
   return (
     <>
       <div className="mt-10 px-4 text-2xl md:text-3xl">{Title}</div>
@@ -18,15 +21,16 @@ const CardArray: FC<IProps> = ({ Title }) => {
           role="list"
           style={{ pointerEvents: isDragging ? 'none' : undefined }}
         >
-          {array.map((el: number, i: number) => {
+          {organizations.map((organization: any, i: number) => {
             return (
               <OrgCard
                 key={i}
-                profilePic="https://robohash.org/sittemporereiciendis.png?size=200x200&set=set1"
-                name="Tesla Corps"
-                members={10}
-                payments={12}
-                tags={['insti', 'travel']}
+                id={organization._id}
+                profilePic={organization?.profilePic}
+                name={organization?.name}
+                members={organization?.members.length}
+                payments={organization?.members.length}
+                tags={organization?.tags}
               />
             )
           })}
