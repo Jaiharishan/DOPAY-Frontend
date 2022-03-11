@@ -23,7 +23,11 @@ const Navbar: FC = () => {
       <div className="flex items-center gap-4">
         <ThemButton />
         {user?.profilePic ? (
-          <img src={user.profilePic} className="h-8 w-8 rounded-full"></img>
+          <Link href={'/profile'}>
+            <a>
+              <img src={user.profilePic} className="h-8 w-8 rounded-full"></img>
+            </a>
+          </Link>
         ) : (
           <div className="h-8 w-8 rounded-full bg-sky-300"></div>
         )}

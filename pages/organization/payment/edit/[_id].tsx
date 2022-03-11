@@ -1,25 +1,26 @@
 import React, { useState, FC } from 'react'
-import axios_api from '../../../helpers/axios/axios_api'
-import NotificationBar from '../../../components/NotificationBar'
-import Navbar from '../../../components/Navbar'
+import axios_api from '../../../../helpers/axios/axios_api'
+import axios_ from '../../../../helpers/axios/axios'
+import NotificationBar from '../../../../components/NotificationBar'
+import Navbar from '../../../../components/Navbar'
 
 // this component is to create a payment
-const create: FC = () => {
-  const [name, setName] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
-  const [amount, setAmount] = useState<number>(0)
-  const [message, setMessage] = useState('')
-  const [open, setOpen] = useState(false)
+
+// /organization/payment/edit/:payment_id
+const edit: FC = ({ payment }: any) => {
+  const [name, setName] = useState<string>(payment.name)
+  const [description, setDescription] = useState<string>(payment.description)
+  const [amount, setAmount] = useState<string>(payment.amount)
+  const [deadline, setDeadline] = useState<string>(payment.deadline)
+  const [message, setMessage] = useState<string>('')
+  const [open, setOpen] = useState<boolean>(false)
 
   const handleSubmit = async () => {
-    const result = await axios_api.post(
-      `payment/61fa09e107385930fc589147/create`,
-      {
-        name,
-        description,
-        amount,
-      }
-    )
+    const result = await axios_api.put(`payment/edit/${payment._id}`, {
+      description,
+      amount,
+      deadline,
+    })
     setOpen(true)
     setMessage(result.data.message)
     console.log(result)
@@ -28,7 +29,8 @@ const create: FC = () => {
   const handleReset = () => {
     setName('')
     setDescription('')
-    setAmount(0)
+    setAmount('')
+    setDeadline('')
   }
 
   return (
@@ -50,6 +52,7 @@ const create: FC = () => {
           <input
             type="text"
             className="input-class"
+            disabled
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -65,14 +68,25 @@ const create: FC = () => {
           />
         </div>
 
-        {/* email */}
+        {/* amount */}
         <div className="mt-5 w-full md:w-3/4">
           <p className="text-lg">Amount (in Rs.)</p>
           <input
             type="number"
             className="input-class"
             value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+        </div>
+
+        {/* deadline */}
+        <div className="mt-5 w-full md:w-3/4">
+          <p className="text-lg">Deadline</p>
+          <input
+            type="date"
+            className="input-class"
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
           />
         </div>
 
@@ -105,4 +119,25 @@ const create: FC = () => {
   )
 }
 
-export default create
+export const getStaticPaths = async () => {
+  const res = await axios_.get('payment/')
+  const Ids = res.data.payments_id
+
+  const paths = Ids.map((id: any): any => {
+    const _id = id._id
+    return { params: { _id } }
+  })
+
+  return { paths, fallback: false }
+}
+
+export const getStaticProps = async (context: any) => {
+  const payment_id = context.params._id
+  const res = await axios_.get(`payment/${payment_id}`)
+  const payment = res.data.payment
+  return {
+    props: { payment: payment },
+  }
+}
+
+export default edit

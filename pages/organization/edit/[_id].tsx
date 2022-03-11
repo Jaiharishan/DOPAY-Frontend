@@ -208,7 +208,7 @@ const edit: FC = ({ org }: any) => {
                 type="text"
                 value={currentTag}
                 onChange={(e) => setCurrentTag(e.target.value)}
-                className="input-class mt-0 w-1/2"
+                className="input-class mt-0 w-full md:w-1/2"
               />
               <button
                 className="rounded-lg bg-sky-400 px-4 py-2 text-white hover:bg-sky-300 dark:hover:bg-sky-500"
@@ -232,7 +232,7 @@ const edit: FC = ({ org }: any) => {
                 type="text"
                 value={currentCard}
                 onChange={(e) => setCurrentCard(e.target.value)}
-                className="input-class mt-0 w-1/2"
+                className="input-class mt-0 w-full md:w-1/2"
               />
               <button
                 className="rounded-lg bg-sky-400 px-4 py-2 text-white hover:bg-sky-300 dark:hover:bg-sky-500"

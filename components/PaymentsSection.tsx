@@ -3,7 +3,14 @@ import PaymentCard from './PaymentCard'
 import axios_ from '../helpers/axios/axios'
 // import moment from 'moment'
 
-const PaymentsSection: FC<string | any> = ({ org_id, isHead }) => {
+const PaymentsSection: FC<string | any> = ({
+  org_id,
+  isHead,
+  message,
+  setMessage,
+  openNotif,
+  setOpenNotif,
+}) => {
   const [pastPayments, setPastPayments] = useState([])
   const [activePayments, setActivePayments] = useState([])
   const [paymentStatus, setPaymentStatus] = useState('All')
@@ -20,7 +27,7 @@ const PaymentsSection: FC<string | any> = ({ org_id, isHead }) => {
 
   return (
     <div className="m-auto mt-8 flex w-full flex-col items-center px-2 md:w-5/6">
-      <p className="text-3xl">Payments</p>
+      <p className="text-2xl md:text-3xl">Payments</p>
 
       <div className="mt-5 flex w-full">
         <div
@@ -55,7 +62,7 @@ const PaymentsSection: FC<string | any> = ({ org_id, isHead }) => {
       <div className="mt-4 flex w-full">
         <div
           className={
-            'h-0 w-1/3 border border-sky-400 bg-sky-400 transition duration-200'
+            'h-0.5 w-1/3 border border-sky-400 bg-sky-400 transition duration-200'
           }
           style={{ transform: paymentBarStyle }}
         ></div>
@@ -65,19 +72,63 @@ const PaymentsSection: FC<string | any> = ({ org_id, isHead }) => {
       <div className="mt-10 mb-5 flex w-full flex-col gap-4 md:w-5/6">
         {paymentStatus === 'All' &&
           activePayments.map((payment, i) => {
-            return <PaymentCard key={i} payment={payment} isHead={isHead} />
+            return (
+              <PaymentCard
+                key={i}
+                payment={payment}
+                isHead={isHead}
+                org_id={org_id}
+                message={message}
+                setMessage={setMessage}
+                openNotif={openNotif}
+                setOpenNotif={setOpenNotif}
+              />
+            )
           })}
         {paymentStatus === 'All' &&
           pastPayments.map((payment, i) => {
-            return <PaymentCard key={i} payment={payment} isHead={isHead} />
+            return (
+              <PaymentCard
+                key={i}
+                payment={payment}
+                isHead={isHead}
+                org_id={org_id}
+                message={message}
+                setMessage={setMessage}
+                openNotif={openNotif}
+                setOpenNotif={setOpenNotif}
+              />
+            )
           })}
         {paymentStatus === 'Active' &&
           activePayments.map((payment, i) => {
-            return <PaymentCard key={i} payment={payment} isHead={isHead} />
+            return (
+              <PaymentCard
+                key={i}
+                payment={payment}
+                isHead={isHead}
+                org_id={org_id}
+                message={message}
+                setMessage={setMessage}
+                openNotif={openNotif}
+                setOpenNotif={setOpenNotif}
+              />
+            )
           })}
         {paymentStatus === 'Expired' &&
           pastPayments.map((payment, i) => {
-            return <PaymentCard key={i} payment={payment} isHead={isHead} />
+            return (
+              <PaymentCard
+                key={i}
+                payment={payment}
+                isHead={isHead}
+                org_id={org_id}
+                message={message}
+                setMessage={setMessage}
+                openNotif={openNotif}
+                setOpenNotif={setOpenNotif}
+              />
+            )
           })}
       </div>
     </div>

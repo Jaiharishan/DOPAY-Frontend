@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, LegacyRef, useRef } from 'react'
 import OrgCard from './OrgCard'
 import useScrollBox from '../helpers/hooks/useScrollBox'
 interface IProps {
@@ -7,14 +7,16 @@ interface IProps {
 }
 
 const CardArray: FC<IProps> = ({ Title, organizations }) => {
-  const scrollWrapperRef = useRef()
+  const scrollWrapperRef = useRef<any>()
   const { isDragging } = useScrollBox(scrollWrapperRef)
 
-  console.log(organizations)
+  // console.log(organizations)
 
   return (
     <>
-      <div className="mt-10 px-4 text-2xl md:text-3xl">{Title}</div>
+      {Title !== '' && (
+        <div className="mt-10 px-4 text-2xl md:text-3xl">{Title}</div>
+      )}
       <div className="scroll-box__wrapper" ref={scrollWrapperRef}>
         <div
           className="scroll-box__container my-4 gap-4 px-4"

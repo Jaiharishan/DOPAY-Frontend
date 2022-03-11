@@ -10,6 +10,10 @@ import Link from 'next/link'
 import PaymentsSection from '../../components/PaymentsSection'
 import { Iuser } from '../../helpers/interfaces/userInterface'
 import UserContext from '../../helpers/contexts/userContext'
+import MembersSection from '../../components/MembersSection'
+import Divider from '../../components/Divider'
+import AddUserModal from '../../components/AddUserModal'
+import NotificationBar from '../../components/NotificationBar'
 
 // This is the organization page component
 // /organization/:id
@@ -21,11 +25,14 @@ const Organization: FC<Iorg> = ({ org }: any) => {
 
   console.log(org)
 
-  const handleAddMembers = () => {}
+  const [message, setMessage] = useState('')
+  const [openNotif, setOpenNotif] = useState(false)
 
-  const handleJoinOrg = () => {}
+  // const handleAddMembers = () => {}
 
-  const handleAddPayments = () => {}
+  // const handleJoinOrg = () => {}
+
+  // const handleAddPayments = () => {}
 
   return (
     <>
@@ -71,7 +78,7 @@ const Organization: FC<Iorg> = ({ org }: any) => {
                 <div
                   key={i}
                   className={
-                    randomColors() +
+                    'bg-orange-300' +
                     ' text-md cursor-pointer rounded-full px-3 py-1 text-white'
                   }
                 >
@@ -83,17 +90,9 @@ const Organization: FC<Iorg> = ({ org }: any) => {
           <div className="mt-3 flex items-center gap-4 self-start ">
             {/* check if user is heads and then shows add members or else it shows join now */}
             {org?.heads?.includes(user._id) ? (
-              <button
-                className="rounded-lg border border-sky-400 bg-sky-400 px-4 py-2 text-white hover:bg-transparent"
-                onClick={handleAddMembers}
-              >
-                Add members
-              </button>
+              <AddUserModal org_id={org._id} />
             ) : (
-              <button
-                className="rounded-lg bg-sky-400 px-4 py-2 text-white hover:bg-sky-500"
-                onClick={handleJoinOrg}
-              >
+              <button className="rounded-lg bg-sky-400 px-4 py-2 text-white hover:bg-sky-500">
                 Join now
               </button>
             )}
@@ -102,10 +101,7 @@ const Organization: FC<Iorg> = ({ org }: any) => {
             {org?.heads?.includes(user._id) && (
               <Link href={`/organization/payment/create/${org._id}`}>
                 <a>
-                  <button
-                    className="rounded-lg border border-sky-400 px-4 py-2 transition duration-200 hover:bg-sky-400 hover:text-white"
-                    onClick={handleAddPayments}
-                  >
+                  <button className="rounded-lg border border-sky-400 px-4 py-2 transition duration-200 hover:bg-sky-400 hover:text-white">
                     Add payments
                   </button>
                 </a>
@@ -116,7 +112,7 @@ const Organization: FC<Iorg> = ({ org }: any) => {
       </div>
 
       {/* divider line */}
-      <div className="m-auto mt-10 w-5/6 border-b border-gray-300 dark:border-gray-600"></div>
+      <Divider />
 
       {/* description */}
       <div className="m-auto mt-8 flex w-full flex-col items-center px-2 md:w-5/6">
@@ -125,14 +121,32 @@ const Organization: FC<Iorg> = ({ org }: any) => {
       </div>
 
       {/* divider line */}
-      <div className="m-auto mt-10 w-5/6 border-b border-gray-300 dark:border-gray-600"></div>
+      <Divider />
+
+      {/* members */}
+      <MembersSection org_id={org._id} />
+
+      {/* divider line */}
+      <Divider />
 
       {/* payments */}
-
       <PaymentsSection
         org_id={org._id}
         isHead={org?.heads?.includes(user._id)}
+        message={message}
+        setMessage={setMessage}
+        openNotif={openNotif}
+        setOpenNotif={setOpenNotif}
       />
+
+      {openNotif && (
+        <NotificationBar
+          status={'success'}
+          open={openNotif}
+          setOpen={setOpenNotif}
+          message={message}
+        />
+      )}
     </>
   )
 }

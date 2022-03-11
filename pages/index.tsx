@@ -12,20 +12,20 @@ import { Iuser } from '../helpers/interfaces/userInterface'
 
 const index = () => {
   const user = useContext(UserContext)
-  console.log(user)
+  // console.log(user)
 
   const [userOrganizations, setUserOrganizations] = useState([])
-  const [message, setMessage] = useState('')
-  const [open, setOpen] = useState(false)
+  // const [message, setMessage] = useState('')
+  // const [open, setOpen] = useState(false)
 
   // getting the oranizations in which user is part of
   useEffect(() => {
     ;(async () => {
       const result = await axios_api.get('self/organizations')
       setUserOrganizations(result.data.organizations)
-      setMessage(result.data.message)
+      // setMessage(result.data.message)
 
-      setOpen(true)
+      // setOpen(true)
     })()
   }, [])
 
@@ -40,14 +40,14 @@ const index = () => {
         organizations={userOrganizations}
       />
 
-      {open && (
+      {/* {open && (
         <NotificationBar
           status={'success'}
           open={open}
           setOpen={setOpen}
           message={message}
         />
-      )}
+      )} */}
 
       {/* <CardArray Title={'Sports Organizations'} /> */}
     </>

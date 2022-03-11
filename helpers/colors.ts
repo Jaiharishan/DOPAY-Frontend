@@ -12,7 +12,7 @@ const colors: string[] = [
   'bg-fuschia-300',
 ]
 
-const randomColors = () => {
+const randomColors = (): string => {
   return colors[Math.floor(Math.random() * (colors.length - 1))]
 }
 

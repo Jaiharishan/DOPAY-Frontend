@@ -16,10 +16,10 @@ const register: FC = () => {
     })
 
     if (result.status !== 200) {
-      router.push('/register')
+      router.push('/login')
     }
 
-    router.push('/login')
+    router.push('/')
 
     console.log(result)
     localStorage.setItem('token', result.data.token)

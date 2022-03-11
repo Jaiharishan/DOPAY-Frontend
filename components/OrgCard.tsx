@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { UserIcon, CreditCardIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import randomColors from '../helpers/colors'
@@ -23,6 +23,11 @@ const OrgCard: FC<IProps> = ({
 }) => {
   const { theme, setTheme } = useTheme()
 
+  let colors: string
+  useEffect(() => {
+    colors = randomColors()
+  }, [])
+
   return (
     <Link href={`/organization/${id}`}>
       <a>
@@ -41,13 +46,13 @@ const OrgCard: FC<IProps> = ({
             <CreditCardIcon className="h-4 w-4 dark:stroke-gray-400" />
             {payments}
           </p>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             {tags.length ? (
               tags.map((tag) => (
                 <div
                   className={
-                    randomColors() +
-                    ' rounded-full px-3 py-1 text-sm text-white'
+                    'bg-orange-300' +
+                    ' flex w-fit items-center justify-center rounded-full px-3 py-1 text-sm text-white'
                   }
                 >
                   {tag}
@@ -56,7 +61,7 @@ const OrgCard: FC<IProps> = ({
             ) : (
               <div
                 className={
-                  randomColors() + ' rounded-full px-3 py-1 text-sm text-white'
+                  'bg-sky-300' + ' rounded-full px-3 py-1 text-sm text-white'
                 }
               >
                 {name}
