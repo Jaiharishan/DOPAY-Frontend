@@ -15,8 +15,6 @@ const TransactionCard = ({ transaction }: any) => {
       <div className="flex w-1/4 flex-col items-end justify-between gap-4">
         <p className="text-lg font-bold">Rs.{transaction.amount}</p>
       </div>
-
-      {/*  to ensure if the user is head and also if its open */}
     </div>
   )
 }

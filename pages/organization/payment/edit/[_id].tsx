@@ -3,11 +3,13 @@ import axios_api from '../../../../helpers/axios/axios_api'
 import axios_ from '../../../../helpers/axios/axios'
 import NotificationBar from '../../../../components/NotificationBar'
 import Navbar from '../../../../components/Navbar'
+import { useRouter } from 'next/router'
 
 // this component is to create a payment
 
 // /organization/payment/edit/:payment_id
 const edit: FC = ({ payment }: any) => {
+  const router = useRouter()
   const [name, setName] = useState<string>(payment.name)
   const [description, setDescription] = useState<string>(payment.description)
   const [amount, setAmount] = useState<string>(payment.amount)
@@ -21,9 +23,14 @@ const edit: FC = ({ payment }: any) => {
       amount,
       deadline,
     })
-    setOpen(true)
-    setMessage(result.data.message)
-    console.log(result)
+
+    if (result) {
+      setMessage(result.data.message)
+      setOpen(true)
+      setTimeout(() => {
+        router.push('/')
+      }, 1200)
+    }
   }
 
   const handleReset = () => {

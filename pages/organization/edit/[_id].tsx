@@ -4,10 +4,12 @@ import axios_ from '../../../helpers/axios/axios'
 import axios_api from '../../../helpers/axios/axios_api'
 import randomColors from '../../../helpers/colors'
 import { XIcon } from '@heroicons/react/outline'
-
+import { useRouter } from 'next/router'
+import NotificationBar from '../../../components/NotificationBar'
 // /organization/edit/:id
 
 const edit: FC = ({ org }: any) => {
+  const router = useRouter()
   const [name, setName] = useState<string>(org?.name ? org.name : '')
   const [description, setDescription] = useState<string>(
     org?.description ? org.description : ''
@@ -27,6 +29,9 @@ const edit: FC = ({ org }: any) => {
     'cursor-pointer rounded-lg border-2 border-gray-300 dark:border-gray-500 p-1'
   )
 
+  const [message, setMessage] = useState('')
+  const [open, setOpen] = useState(false)
+
   const handleSubmit = async () => {
     const result = await axios_api.put(`organization/edit/${org._id}`, {
       name,
@@ -36,6 +41,14 @@ const edit: FC = ({ org }: any) => {
       tags,
       cards,
     })
+
+    if (result) {
+      setMessage(result.data.message)
+      setOpen(true)
+      setTimeout(() => {
+        router.push(`/organization/${org._id}`)
+      }, 1200)
+    }
 
     console.log(result)
   }
@@ -260,6 +273,15 @@ const edit: FC = ({ org }: any) => {
           </button>
         </div>
       </div>
+
+      {open && (
+        <NotificationBar
+          status={'success'}
+          open={open}
+          setOpen={setOpen}
+          message={message}
+        />
+      )}
     </>
   )
 }

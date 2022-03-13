@@ -6,11 +6,15 @@ import randomColors from '../../helpers/colors'
 import { XIcon } from '@heroicons/react/outline'
 import UserContext from '../../helpers/contexts/userContext'
 import NotificationBar from '../../components/NotificationBar'
+import { useRouter } from 'next/router'
 
 // /organization/edit/:id
 
 const edit: FC = () => {
   const user = useContext(UserContext)
+
+  const router = useRouter()
+
   const [name, setName] = useState<string>(
     user?.first_name
       ? user?.first_name
@@ -50,6 +54,9 @@ const edit: FC = () => {
     if (result) {
       setMessage(result.data.message)
       setOpen(true)
+      setTimeout(() => {
+        router.push('/profile')
+      }, 1200)
     }
 
     console.log(result)
