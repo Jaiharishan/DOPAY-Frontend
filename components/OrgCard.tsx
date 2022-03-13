@@ -48,8 +48,9 @@ const OrgCard: FC<IProps> = ({
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             {tags.length ? (
-              tags.map((tag) => (
+              tags.map((tag, index) => (
                 <div
+                  key={index}
                   className={
                     'bg-orange-300' +
                     ' flex w-fit items-center justify-center rounded-full px-3 py-1 text-sm text-white'
